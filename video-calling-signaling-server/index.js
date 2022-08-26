@@ -11,7 +11,7 @@ app.use(express.static("public"));
 app.use(pino);
 app.use(cors({ origin: "*" }));
 
-const PORT = process.env.VIDEO_CALLING_SIGNALLING_SERVER_PORT || 80;
+const PORT = process.env.PORT || 3000;
 
 app.get("/", (req, res) => {
   res.sendFile("index.html", { root: path.join(__dirname, "public") });
