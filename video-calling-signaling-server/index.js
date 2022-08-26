@@ -9,7 +9,7 @@ const { initVideoCallingSocketIO } = require("./videoCallingSocketIO");
 dotenv.config(); // read configuration from .env file
 app.use(express.static("public"));
 app.use(pino);
-app.use(cors({ origin: "http://localhost:3000/", credentials: true }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 const PORT = process.env.VIDEO_CALLING_SIGNALLING_SERVER_PORT || 80;
 
