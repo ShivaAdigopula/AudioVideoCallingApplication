@@ -7,14 +7,14 @@ const server = http.createServer(app);
 const cors = require("cors");
 const { initVideoCallingSocketIO } = require("./videoCallingSocketIO");
 dotenv.config(); // read configuration from .env file
-app.use(express.static('public'))
+app.use(express.static("public"));
 app.use(pino);
-app.use(cors());
+app.use(cors({ origin: "localhost", credentials: true }));
 
 const PORT = process.env.VIDEO_CALLING_SIGNALLING_SERVER_PORT || 80;
 
 app.get("/", (req, res) => {
-  res.sendFile('index.html', {root: path.join(__dirname, 'public')});
+  res.sendFile("index.html", { root: path.join(__dirname, "public") });
 });
 
 initVideoCallingSocketIO(server);
