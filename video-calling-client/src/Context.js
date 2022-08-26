@@ -34,9 +34,11 @@ const ContextProvider = ({ children }) => {
       .then((currentStream) => {
         setStream(currentStream);
 
-        if (myVideo && myVideo.current) {
-          myVideo.current.srcObject = currentStream;
-        }
+        setTimeout(() => {
+          if (myVideo && myVideo.current) {
+            myVideo.current.srcObject = currentStream;
+          }
+        }, 2000);
       });
 
     socket.on(ME, (id) => {
