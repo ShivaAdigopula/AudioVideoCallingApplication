@@ -14,6 +14,7 @@ function App() {
           <CallNotifier />
         </Controls>
       </div>
+      <div>Developed By Shiva Adigopula</div>
     </div>
   );
 }
