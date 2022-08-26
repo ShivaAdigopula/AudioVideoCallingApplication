@@ -32,7 +32,7 @@ const initVideoCallingSocketIO = (server) => {
     });
 
     socket.on(ANSWER_CALL, (data) => {
-      logger.info(`user ${data.from} acceptd the call from ${data.to}`);
+      logger.info(`user accepted the call from ${data.to}`);
       io.to(data.to).emit(CALL_ACCEPTED, data.signal);
     });
   });
