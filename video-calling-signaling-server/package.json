@@ -1,0 +1,18 @@
+{
+  "name": "video-calling-signaling-server",
+  "version": "1.0.0",
+  "description": "video calling signaling server using WebRTC and Socket IO",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index"
+  },
+  "author": "Shiva Adigopula",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "pino": "^8.4.2",
+    "pino-http": "^8.2.0",
+    "socket.io": "^4.5.1"
+  }
+}
