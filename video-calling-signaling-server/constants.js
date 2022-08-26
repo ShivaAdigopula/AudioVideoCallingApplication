@@ -5,6 +5,7 @@ const CALL_USER = "callUser";
 const ANSWER_CALL = "answerCall";
 const CALL_ACCEPTED = "callAccepted";
 const CALL_ENDED = "callEnded";
+const HANG_UP = "hangUp";
 
 module.exports = {
   CONNECTION,
@@ -15,4 +16,5 @@ module.exports = {
   ANSWER_CALL,
   CALL_ACCEPTED,
   CALL_ENDED,
+  HANG_UP,
 };

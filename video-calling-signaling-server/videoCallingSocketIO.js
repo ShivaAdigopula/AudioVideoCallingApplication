@@ -7,6 +7,7 @@ const {
   CALL_USER,
   ANSWER_CALL,
   CALL_ACCEPTED,
+  HANG_UP,
 } = require("./constants");
 const logger = require("./logger");
 
@@ -23,6 +24,10 @@ const initVideoCallingSocketIO = (server) => {
     socket.emit(ME, socket.id);
 
     socket.on(DISCONNECT, () => {
+      socket.broadcast.emit(CALL_ENDED);
+    });
+
+    socket.on(HANG_UP, () => {
       socket.broadcast.emit(CALL_ENDED);
     });
 
