@@ -11,8 +11,6 @@ export const VideoWrapper = () => {
     call,
   } = useContext(SocketContext);
 
-  console.log({ call: JSON.stringify(call) });
-
   return (
     <>
       <div className="flex w-full h-full justify-center items-center">
