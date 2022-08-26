@@ -14,7 +14,7 @@ const initVideoCallingSocketIO = (server) => {
   logger.info("initializing video calling socket io");
   const io = socket(server, {
     cors: {
-      origin: "*",
+      origin: "https://localhost:3000",
       methods: ["GET", "POST"],
     },
   });
