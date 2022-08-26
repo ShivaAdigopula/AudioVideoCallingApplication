@@ -4,7 +4,7 @@
   "description": "video calling signaling server using WebRTC and Socket IO",
   "main": "index.js",
   "scripts": {
-    "start": "node index"
+    "start": "node index.js"
   },
   "author": "Shiva Adigopula",
   "license": "ISC",
