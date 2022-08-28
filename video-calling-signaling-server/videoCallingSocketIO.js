@@ -24,7 +24,7 @@ const initVideoCallingSocketIO = (server) => {
     socket.emit(ME, socket.id);
 
     socket.on(DISCONNECT, () => {
-      socket.broadcast.emit(CALL_ENDED);
+      // socket.broadcast.emit(CALL_ENDED);
     });
 
     socket.on(HANG_UP, () => {

@@ -3,53 +3,51 @@ import { SocketContext } from "../Context";
 const Controls = ({ children }) => {
   const {
     callInitiated,
-    me,
     name,
     setName,
     callEnded,
     leaveCall,
     callUser,
     callAccepted,
+    initializeSocketConnection,
+    call,
   } = useContext(SocketContext);
   const [idToCall, setIdToCall] = useState("");
   const [userName, setUserName] = useState("");
+
+  const onSubmitHandler = () => {
+    setName(userName);
+    initializeSocketConnection();
+  };
+
   return (
     <>
-      <div className="w-screen flex flex-col justify-center items-center border-solid border-1 p-5 m-5">
-        {!callAccepted && name && (
-          <>
-            <div className="m-5">
-              {" "}
-              Hello{" "}
-              <span className="inline text-orange-400 text-lg">{name}</span>,
-              Your ID is{" "}
-              <span className="inline text-orange-800 text-lg ">{me}</span>
-            </div>
-          </>
-        )}
+      <div className="w-screen flex flex-col justify-center items-center p-5 m-5">
+       
         {children}
         {!callInitiated && !name && (
-          <div className="w-full flex justify-center items">
-            <div className="w-1/2">
-              <label
+          <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/3 flex flex-col justify-center items-center gap-4">
+            <div className="w-full">
+              {/* <label
                 forName="userName"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
                 Your Name
-              </label>
+              </label> */}
               <input
                 type="text"
+                placeholder="Enter Your Name"
                 name="userName"
                 id="userName"
-                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 onChange={(e) => setUserName(e.target.value)}
               />
             </div>
-            <div className="mt-7 mx-5">
+            <div>
               <button
-                onClick={() => setName(userName)}
+                onClick={onSubmitHandler}
                 type="button"
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                className="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Submit
               </button>
@@ -57,24 +55,25 @@ const Controls = ({ children }) => {
           </div>
         )}
 
-        {!callAccepted && name && (
+        {!call.isReceivingCall && !callAccepted && name && (
           <div className="w-full flex justify-center items-center">
             <div className="w-1/2 ">
-              <label
+              {/* <label
                 forName="idToCall"
                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
               >
                 Enter ID to call
-              </label>
+              </label> */}
               <input
                 type="text"
                 name="idToCall"
+                placeholder="Enter Your Friend ID "
                 id="idToCall"
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                 onChange={(e) => setIdToCall(e.target.value)}
               />
             </div>
-            <div className="mt-7 mx-7">
+            <div className="mx-7">
               <button
                 onClick={() => callUser(idToCall)}
                 type="button"

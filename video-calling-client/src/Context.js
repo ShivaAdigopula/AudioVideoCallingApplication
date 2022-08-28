@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef, useEffect } from "react";
+import React, { createContext, useState, useRef } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import {
@@ -13,7 +13,7 @@ import {
 } from "./constants";
 const SocketContext = createContext();
 
-const socket = io(process.env.REACT_APP_SIGNALLING_SERVER);
+let socket = null;
 
 const ContextProvider = ({ children }) => {
   const [callAccepted, setCallAccepted] = useState(false);
@@ -28,7 +28,7 @@ const ContextProvider = ({ children }) => {
   const userVideo = useRef();
   const connectionRef = useRef();
 
-  useEffect(() => {
+  const initializeCamera = () => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
@@ -40,8 +40,12 @@ const ContextProvider = ({ children }) => {
           }
         }, 2000);
       });
+  };
 
+  const initializeSocketConnection = () => {
+    socket = io(process.env.REACT_APP_SIGNALLING_SERVER);
     socket.on(ME, (id) => {
+      console.log({ id });
       setMe(id);
     });
 
@@ -57,27 +61,34 @@ const ContextProvider = ({ children }) => {
 
       window.location.reload();
     });
-  }, []);
+  };
 
   const answerCall = () => {
+    if (call.from !== me) {
+      initializeCamera();
+    }
+
     setCallAccepted(true);
     setCallInitiated(true);
-    const peer = new Peer({ initiator: false, trickle: false, stream });
 
-    peer.on(SIGNAL, (data) => {
-      socket.emit(ANSWER_CALL, { signal: data, to: call.from });
-    });
+    setTimeout(() => {
+      const peer = new Peer({ initiator: false, trickle: false, stream });
+      peer.on(SIGNAL, (data) => {
+        socket.emit(ANSWER_CALL, { signal: data, to: call.from });
+      });
 
-    peer.on(STREAM, (currentStream) => {
-      userVideo.current.srcObject = currentStream;
-    });
+      peer.on(STREAM, (currentStream) => {
+        userVideo.current.srcObject = currentStream;
+      });
 
-    peer.signal(call.signal);
+      peer.signal(call.signal);
 
-    connectionRef.current = peer;
+      connectionRef.current = peer;
+    }, 3000);
   };
 
   const callUser = (id) => {
+    initializeCamera();
     setCallInitiated(true);
     const peer = new Peer({ initiator: true, trickle: false, stream });
 
@@ -132,6 +143,8 @@ const ContextProvider = ({ children }) => {
         leaveCall,
         answerCall,
         callInitiated,
+        initializeCamera,
+        initializeSocketConnection,
       }}
     >
       {children}
