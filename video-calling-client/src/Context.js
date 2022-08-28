@@ -38,7 +38,7 @@ const ContextProvider = ({ children }) => {
           if (myVideo && myVideo.current) {
             myVideo.current.srcObject = currentStream;
           }
-        }, 2000);
+        }, 0);
       });
   };
 
@@ -64,6 +64,7 @@ const ContextProvider = ({ children }) => {
   };
 
   const answerCall = () => {
+    console.log({ from: call.from, me });
     if (call.from !== me) {
       initializeCamera();
     }
@@ -78,13 +79,14 @@ const ContextProvider = ({ children }) => {
       });
 
       peer.on(STREAM, (currentStream) => {
+        console.log("streaming");
         userVideo.current.srcObject = currentStream;
       });
 
       peer.signal(call.signal);
 
       connectionRef.current = peer;
-    }, 3000);
+    }, 1000);
   };
 
   const callUser = (id) => {
