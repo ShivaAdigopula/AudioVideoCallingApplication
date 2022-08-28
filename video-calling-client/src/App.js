@@ -23,7 +23,7 @@ function App() {
 
       <footer className="absolute bottom-0 w-screen p-5">
         {" "}
-        <div className="text-center">
+        <div className="text-center" tabIndex={-1}>
           {" "}
           &copy; {new Date().getFullYear()} Shiva Adigopula
         </div>
