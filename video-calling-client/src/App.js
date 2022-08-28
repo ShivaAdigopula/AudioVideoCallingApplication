@@ -21,9 +21,9 @@ function App() {
         </div>
       </div>
 
-      <footer className="absolute bottom-0 w-screen p-5">
+      <footer className="absolute bottom-0 w-screen p-5 select-none">
         {" "}
-        <div className="text-center" tabIndex={-1}>
+        <div className="text-center user select-none" tabIndex={-1}>
           {" "}
           &copy; {new Date().getFullYear()} Shiva Adigopula
         </div>
