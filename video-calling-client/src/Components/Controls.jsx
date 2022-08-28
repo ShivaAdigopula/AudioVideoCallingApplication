@@ -23,12 +23,15 @@ const Controls = ({ children }) => {
   return (
     <>
       <div className="w-screen flex flex-col justify-center items-center p-5 my-2">
-       
+        <div className="text-lg font-medium text-blue-700">
+          {!callAccepted && callInitiated && idToCall && (
+            <div>Calling to {idToCall}</div>
+          )}
+        </div>
         {children}
         {!callInitiated && !name && (
           <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/3 flex flex-col justify-center items-center gap-4">
             <div className="w-full">
-           
               <input
                 type="text"
                 placeholder="Enter Your Name"
@@ -50,10 +53,9 @@ const Controls = ({ children }) => {
           </div>
         )}
 
-        {!call.isReceivingCall && !callAccepted && name && (
+        {!callInitiated && !call.isReceivingCall && !callAccepted && name && (
           <div className="w-full flex justify-center items-center">
             <div className="w-1/2 ">
-             
               <input
                 type="text"
                 name="idToCall"
