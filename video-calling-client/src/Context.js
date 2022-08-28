@@ -1,4 +1,4 @@
-import React, { createContext, useState, useRef } from "react";
+import React, { createContext, useState, useRef, useEffect } from "react";
 import io from "socket.io-client";
 import Peer from "simple-peer";
 import {
@@ -28,7 +28,7 @@ const ContextProvider = ({ children }) => {
   const userVideo = useRef();
   const connectionRef = useRef();
 
-  const initializeCamera = () => {
+  useEffect(() => {
     navigator.mediaDevices
       .getUserMedia({ video: true, audio: true })
       .then((currentStream) => {
@@ -40,7 +40,9 @@ const ContextProvider = ({ children }) => {
           }
         }, 0);
       });
-  };
+  }, []);
+
+  const initializeCamera = () => {};
 
   const initializeSocketConnection = () => {
     socket = io(process.env.REACT_APP_SIGNALLING_SERVER);
@@ -92,28 +94,30 @@ const ContextProvider = ({ children }) => {
   const callUser = (id) => {
     initializeCamera();
     setCallInitiated(true);
-    const peer = new Peer({ initiator: true, trickle: false, stream });
+    setTimeout(() => {
+      const peer = new Peer({ initiator: true, trickle: false, stream });
 
-    peer.on(SIGNAL, (data) => {
-      socket.emit(CALL_USER, {
-        userToCall: id,
-        signalData: data,
-        from: me,
-        name,
+      peer.on(SIGNAL, (data) => {
+        socket.emit(CALL_USER, {
+          userToCall: id,
+          signalData: data,
+          from: me,
+          name,
+        });
       });
-    });
 
-    peer.on(STREAM, (currentStream) => {
-      userVideo.current.srcObject = currentStream;
-    });
+      peer.on(STREAM, (currentStream) => {
+        userVideo.current.srcObject = currentStream;
+      });
 
-    socket.on(CALL_ACCEPTED, (signal) => {
-      setCallAccepted(true);
+      socket.on(CALL_ACCEPTED, (signal) => {
+        setCallAccepted(true);
 
-      peer.signal(signal);
-    });
+        peer.signal(signal);
+      });
 
-    connectionRef.current = peer;
+      connectionRef.current = peer;
+    }, 2000);
   };
 
   const leaveCall = () => {
