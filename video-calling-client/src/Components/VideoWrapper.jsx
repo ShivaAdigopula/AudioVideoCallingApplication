@@ -14,7 +14,7 @@ export const VideoWrapper = () => {
                 playsInline
                 ref={myVideo}
                 autoPlay
-                width="320" height="240"
+                width="320" height="220"
                 // className="object-cover overflow-hidden"
               />
             </div>
@@ -29,7 +29,7 @@ export const VideoWrapper = () => {
                 playsInline
                 ref={userVideo}
                 autoPlay
-                width="320" height="240"
+                width="320" height="220"
               />
             </div>
             <div>{call.name}</div>

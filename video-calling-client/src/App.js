@@ -11,7 +11,7 @@ function App() {
       <AppBar />
       <Greetings />
       <div className="flex flex-col justify-center items-center  bg-slate-200">
-        <div className=" mx-10 my-5 h-1/3 w-full">
+        <div className=" my-2 w-full">
           <VideoWrapper />
         </div>
         <div className="mx-10 my-5">

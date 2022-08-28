@@ -22,18 +22,13 @@ const Controls = ({ children }) => {
 
   return (
     <>
-      <div className="w-screen flex flex-col justify-center items-center p-5 m-5">
+      <div className="w-screen flex flex-col justify-center items-center p-5 my-2">
        
         {children}
         {!callInitiated && !name && (
           <div className="w-full md:w-1/2 lg:w-1/3 xl:w-1/3 flex flex-col justify-center items-center gap-4">
             <div className="w-full">
-              {/* <label
-                forName="userName"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Your Name
-              </label> */}
+           
               <input
                 type="text"
                 placeholder="Enter Your Name"
@@ -58,12 +53,7 @@ const Controls = ({ children }) => {
         {!call.isReceivingCall && !callAccepted && name && (
           <div className="w-full flex justify-center items-center">
             <div className="w-1/2 ">
-              {/* <label
-                forName="idToCall"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-              >
-                Enter ID to call
-              </label> */}
+             
               <input
                 type="text"
                 name="idToCall"
